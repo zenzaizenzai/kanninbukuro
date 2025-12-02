@@ -1,5 +1,10 @@
 name: Deploy to GitHub Pages
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write # IDトークンを書き込むための権限
+
 on:
   # mainブランチにプッシュがあった時にこのワークフローを実行する
   push:
@@ -7,12 +12,7 @@ on:
       - main
   # GitHub上で手動実行できるようにする
   workflow_dispatch:
-
-# 実行中のワークフローが重複しないようにする設定
-concurrency:
-  cancel-in-progress: true
-  group: ${{ github.workflow }}-${{ github.ref }}
-
+    
 jobs:
   # 1. ビルドジョブ
   build:
