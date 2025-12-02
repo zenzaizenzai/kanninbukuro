@@ -5,8 +5,8 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     return {
-        // ★★★ この行を追加/修正 ★★★
-        base: '/kanninbukuro/', // あなたのリポジトリ名に修正してください
+        // ★★★ この行を './' に修正 ★★★
+        base: './', // 相対パスに変更
         // ★★★ ---------------- ★★★
         server: {
             port: 3000,
