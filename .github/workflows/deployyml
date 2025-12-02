@@ -40,7 +40,7 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # ここが重要: ビルドされた静的ファイルが入っているフォルダを指定
+          # ビルドされた静的ファイルが入っているフォルダを指定
           path: './dist'
   
   # 2. デプロイジョブ (GitHub Pages専用)
