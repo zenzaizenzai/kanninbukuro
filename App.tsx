@@ -107,24 +107,24 @@ const App: React.FC = () => {
   // --- Render Helpers ---
 
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-center relative overflow-hidden bg-[#fdf6e3]">
+    <div className="app-container">
       
       {/* 1. START SCREEN */}
       {phase === GamePhase.START && (
-        <div className="z-50 flex flex-col items-center space-y-8 p-6 bg-white/90 rounded-2xl shadow-xl backdrop-blur-sm max-w-sm w-full mx-4 border-4 border-[#d4c5b0]">
-          <h1 className="text-3xl font-black text-[#431407] tracking-widest text-center">
+        <div className="start-card">
+          <h1 className="start-title">
             堪忍袋の緒
           </h1>
-          <p className="text-gray-600 text-center">
+          <p className="start-description">
             イライラが溜まっていませんか？<br/>
             緒（ひも）の本数を選んでください。
           </p>
-          <div className="grid grid-cols-3 gap-4 w-full">
+          <div className="difficulty-grid">
             {DIFFICULTY_OPTIONS.map(num => (
               <button
                 key={num}
                 onClick={() => startGame(num)}
-                className="py-4 text-xl font-bold rounded-lg bg-[#b91c1c] text-white shadow-lg hover:bg-red-800 hover:scale-105 transition-all active:scale-95"
+                className="btn-difficulty"
               >
                 {num}本
               </button>
@@ -135,19 +135,19 @@ const App: React.FC = () => {
 
       {/* 2. MAIN GAME AREA */}
       {(phase === GamePhase.PLAYING || phase === GamePhase.MERCY_CHECK || phase === GamePhase.EXPLOSION) && (
-        <div className="relative w-full max-w-md h-[80vh] flex flex-col items-center justify-center">
+        <div className="game-wrapper">
           
           {/* The Bag Container */}
-          <div className="relative w-full h-full max-h-[600px] p-4 flex items-center justify-center">
+          <div className="bag-container">
             <BagSVG isExploding={phase === GamePhase.EXPLOSION} />
 
             {/* Play Again Button Overlay (appears after explosion) */}
             {phase === GamePhase.EXPLOSION && (
-              <div className="absolute inset-0 flex items-center justify-center z-50 animate-fade-in-delay pointer-events-none">
+              <div className="play-again-overlay animate-fade-in-delay">
                  <div className="pointer-events-auto">
                    <button
                       onClick={() => setPhase(GamePhase.START)}
-                      className="px-10 py-4 bg-white text-red-600 text-xl font-bold rounded-full shadow-2xl border-4 border-red-600 hover:bg-red-50 hover:scale-105 transition-transform"
+                      className="btn-play-again"
                    >
                      もう一度やる
                    </button>
@@ -157,8 +157,8 @@ const App: React.FC = () => {
 
             {/* Cords Layer - Only render if not exploded */}
             {phase !== GamePhase.EXPLOSION && (
-              <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-                <div className="relative w-full h-full pointer-events-auto">
+              <div className="cords-layer">
+                <div className="cords-inner">
                    {cords.map(cord => (
                      <Cord key={cord.id} cord={cord} onClick={handleCordClick} />
                    ))}
@@ -171,22 +171,22 @@ const App: React.FC = () => {
 
       {/* 3. MERCY MODAL */}
       {phase === GamePhase.MERCY_CHECK && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 p-4 animate-fade-in">
-          <div className="bg-white rounded-2xl p-6 max-w-xs w-full shadow-2xl text-center space-y-6 animate-pop-in">
-            <h3 className="text-2xl font-bold text-red-600">最後の1本です…</h3>
-            <p className="text-gray-700 font-medium text-lg">
+        <div className="mercy-overlay animate-fade-in">
+          <div className="mercy-card animate-pop-in">
+            <h3 className="mercy-title">最後の1本です…</h3>
+            <p className="mercy-text">
               チャンスをあげる？
             </p>
-            <div className="flex flex-col space-y-3">
+            <div className="mercy-buttons">
               <button
                 onClick={() => handleMercyResponse(true)}
-                className="w-full py-3 bg-green-500 text-white font-bold rounded-lg shadow hover:bg-green-600 active:scale-95 transition-transform"
+                className="btn-mercy-a"
               >
                 も一回初めから (A)
               </button>
               <button
                 onClick={() => handleMercyResponse(false)}
-                className="w-full py-3 bg-gray-800 text-white font-bold rounded-lg shadow hover:bg-gray-900 active:scale-95 transition-transform"
+                className="btn-mercy-b"
               >
                 無理！！！ (B)
               </button>

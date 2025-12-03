@@ -13,9 +13,7 @@ export const BagSVG: React.FC<BagSVGProps> = ({ isExploding }) => {
   return (
     <svg
       viewBox="0 0 200 400"
-      className={`w-full h-full drop-shadow-xl transition-all duration-300 ${
-        isExploding ? 'animate-explode' : ''
-      }`}
+      className={`bag-svg ${isExploding ? 'animate-explode' : ''}`}
       preserveAspectRatio="xMidYMid meet"
     >
       {!isExploding ? (

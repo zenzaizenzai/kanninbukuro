@@ -21,10 +21,10 @@ export const Cord: React.FC<CordProps> = ({ cord, onClick }) => {
   };
 
   return (
-    <div style={style} className="flex justify-center items-center h-12">
+    <div style={style} className="cord-wrapper">
       {/* Hitbox area expanded for easier tapping */}
       <div 
-        className="w-full h-full absolute top-0 left-0"
+        className="cord-hitbox"
         onClick={() => !cord.isBroken && onClick(cord.id)}
       />
 
@@ -32,19 +32,19 @@ export const Cord: React.FC<CordProps> = ({ cord, onClick }) => {
       {!cord.isBroken ? (
         // Intact Cord
         <div 
-          className="w-full h-3 rounded-full shadow-md transition-transform active:scale-95"
+          className="cord-intact"
           style={{ backgroundColor: COLORS.cordIntact }}
         />
       ) : (
         // Broken Cord
-        <div className="w-full flex justify-between items-center opacity-80">
+        <div className="cord-broken-container">
           <div 
-            className="h-3 rounded-l-full w-[45%]" 
-            style={{ backgroundColor: COLORS.cordBroken, transform: 'rotate(-5deg)' }} 
+            className="cord-half cord-half-left" 
+            style={{ backgroundColor: COLORS.cordBroken }} 
           />
           <div 
-            className="h-3 rounded-r-full w-[45%]" 
-            style={{ backgroundColor: COLORS.cordBroken, transform: 'rotate(5deg)' }} 
+            className="cord-half cord-half-right" 
+            style={{ backgroundColor: COLORS.cordBroken }} 
           />
         </div>
       )}
@@ -52,9 +52,9 @@ export const Cord: React.FC<CordProps> = ({ cord, onClick }) => {
       {/* Venting Word Popup */}
       {cord.isBroken && cord.word && (
         <div 
-          className="absolute -top-12 left-1/2 -translate-x-1/2 whitespace-nowrap pointer-events-none animate-pop-in z-30"
+          className="word-popup animate-pop-in"
         >
-          <span className="bg-white/90 border-2 border-gray-800 text-gray-900 px-3 py-1 rounded-xl text-lg font-black shadow-lg">
+          <span className="word-bubble">
             {cord.word}
           </span>
         </div>
